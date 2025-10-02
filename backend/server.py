@@ -29,11 +29,6 @@ api_router = APIRouter(prefix="/api")
 
 # Configure JSON encoder for datetime objects
 from fastapi.encoders import jsonable_encoder
-from fastapi.responses import JSONResponse
-
-class CustomJSONResponse(JSONResponse):
-    def render(self, content) -> bytes:
-        return super().render(jsonable_encoder(content))
 
 # Enums
 class HerbType(str, Enum):
