@@ -216,6 +216,13 @@ def prepare_for_mongo(data: dict) -> dict:
         data['created_date'] = data['created_date'].isoformat()
     if isinstance(data.get('test_date'), datetime):
         data['test_date'] = data['test_date'].isoformat()
+    
+    # Handle nested test_results
+    if 'test_results' in data and isinstance(data['test_results'], list):
+        for test_result in data['test_results']:
+            if isinstance(test_result, dict) and isinstance(test_result.get('test_date'), datetime):
+                test_result['test_date'] = test_result['test_date'].isoformat()
+    
     return data
 
 def parse_from_mongo(item: dict) -> dict:
