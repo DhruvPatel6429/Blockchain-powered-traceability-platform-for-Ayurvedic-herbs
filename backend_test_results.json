@@ -1,0 +1,60 @@
+{
+  "timestamp": "2025-10-02T04:29:28.113379",
+  "base_url": "https://herb-track.preview.emergentagent.com",
+  "tests_run": 10,
+  "tests_passed": 3,
+  "success_rate": 30.0,
+  "created_batch_id": null,
+  "test_results": [
+    {
+      "test_name": "API Root Endpoint",
+      "success": true,
+      "details": "Status: 200, Message: Ayurvedic Herb Traceability Platform API"
+    },
+    {
+      "test_name": "Create Collection Event",
+      "success": false,
+      "details": "Status: 400, Error: Object of type datetime is not JSON serializable"
+    },
+    {
+      "test_name": "Get All Batches",
+      "success": true,
+      "details": "Status: 200, Batches count: 0"
+    },
+    {
+      "test_name": "Get Batch Details",
+      "success": false,
+      "details": "No batch ID available from collection test"
+    },
+    {
+      "test_name": "Add Processing Event",
+      "success": false,
+      "details": "No batch ID available"
+    },
+    {
+      "test_name": "Add Testing Event",
+      "success": false,
+      "details": "No batch ID available"
+    },
+    {
+      "test_name": "Get Batch Provenance",
+      "success": false,
+      "details": "No batch ID available"
+    },
+    {
+      "test_name": "Generate QR Code",
+      "success": false,
+      "details": "No batch ID available"
+    },
+    {
+      "test_name": "Invalid Batch - Get Details",
+      "success": true,
+      "details": "Status: 404 (Expected 404)"
+    },
+    {
+      "test_name": "Invalid Batch - Add Processing",
+      "success": false,
+      "details": "Status: 400 (Expected 404)"
+    }
+  ]
+}
