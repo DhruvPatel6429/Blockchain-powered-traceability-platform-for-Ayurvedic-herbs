@@ -244,7 +244,7 @@ def parse_from_mongo(item: dict) -> dict:
 async def root():
     return {"message": "Ayurvedic Herb Traceability Platform API"}
 
-@api_router.post("/collection", response_model=HerbBatch)
+@api_router.post("/collection")
 async def create_collection_event(input: CollectionEventCreate):
     """Record a new herb collection event and create a batch"""
     try:
