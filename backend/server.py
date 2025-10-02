@@ -363,7 +363,7 @@ async def add_testing_event(input: TestingEventCreate):
 @api_router.get("/batch/{batch_id}")
 async def get_batch(batch_id: str):
     """Get batch details"""
-    batch = await db.herb_batches.find_one({"id": batch_id})
+    batch = await db.herb_batches.find_one({"id": batch_id}, {"_id": 0})
     if not batch:
         raise HTTPException(status_code=404, detail="Batch not found")
     
