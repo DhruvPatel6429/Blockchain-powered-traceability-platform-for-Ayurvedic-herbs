@@ -401,11 +401,7 @@ async def get_all_batches():
     """Get all herb batches"""
     batches = await db.herb_batches.find().to_list(1000)
     parsed_batches = [parse_from_mongo(batch) for batch in batches]
-    # Convert datetime objects to ISO strings for JSON serialization
-    for batch in parsed_batches:
-        if isinstance(batch.get('created_date'), datetime):
-            batch['created_date'] = batch['created_date'].isoformat()
-    return CustomJSONResponse(content=parsed_batches)
+    return jsonable_encoder([HerbBatch(**batch) for batch in parsed_batches])
 
 @api_router.get("/qr/{batch_id}")
 async def generate_qr_info(batch_id: str):
