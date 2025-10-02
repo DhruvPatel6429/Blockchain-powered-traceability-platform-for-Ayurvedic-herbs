@@ -328,11 +328,12 @@ async def add_testing_event(input: TestingEventCreate):
         # Create testing event
         testing_event = TestingEvent(**input.dict(exclude={"batch_id"}))
         
-        # Create blockchain event
+        # Create blockchain event with serialized data
+        testing_data = prepare_for_mongo(testing_event.dict())
         blockchain_event = await create_blockchain_event(
             input.batch_id,
             EventType.TESTING,
-            testing_event.dict()
+            testing_data
         )
         
         # Store in MongoDB
