@@ -291,11 +291,12 @@ async def add_processing_event(input: ProcessingEventCreate):
         # Create processing event
         processing_event = ProcessingEvent(**input.dict(exclude={"batch_id"}))
         
-        # Create blockchain event
+        # Create blockchain event with serialized data
+        processing_data = prepare_for_mongo(processing_event.dict())
         blockchain_event = await create_blockchain_event(
             input.batch_id,
             EventType.PROCESSING,
-            processing_event.dict()
+            processing_data
         )
         
         # Store in MongoDB
