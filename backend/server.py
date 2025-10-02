@@ -390,12 +390,13 @@ async def get_batch_provenance(batch_id: str):
             if event["previous_hash"] != expected_previous_hash:
                 raise HTTPException(status_code=400, detail=f"Blockchain integrity compromised at block {event['block_number']}")
         
-        return {
+        result = {
             "batch": parse_from_mongo(batch),
             "provenance_chain": parsed_events,
             "chain_verified": True,
             "total_events": len(parsed_events)
         }
+        return jsonable_encoder(result)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
