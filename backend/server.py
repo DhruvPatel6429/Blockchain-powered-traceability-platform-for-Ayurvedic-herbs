@@ -270,7 +270,8 @@ async def create_collection_event(input: CollectionEventCreate):
         batch_dict = prepare_for_mongo(herb_batch.dict())
         await db.herb_batches.insert_one(batch_dict)
         
-        return herb_batch
+        # Return the batch with properly serialized data
+        return HerbBatch(**parse_from_mongo(batch_dict))
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
