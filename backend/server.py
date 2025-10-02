@@ -418,7 +418,7 @@ async def get_all_batches():
 @api_router.get("/qr/{batch_id}")
 async def generate_qr_info(batch_id: str):
     """Generate QR code information for a batch"""
-    batch = await db.herb_batches.find_one({"id": batch_id})
+    batch = await db.herb_batches.find_one({"id": batch_id}, {"_id": 0})
     if not batch:
         raise HTTPException(status_code=404, detail="Batch not found")
     
