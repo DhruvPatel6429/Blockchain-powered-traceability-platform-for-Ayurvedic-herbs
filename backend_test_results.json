@@ -1,10 +1,10 @@
 {
-  "timestamp": "2025-10-02T04:31:34.766577",
+  "timestamp": "2025-10-02T04:32:00.222840",
   "base_url": "https://herb-track.preview.emergentagent.com",
   "tests_run": 10,
-  "tests_passed": 3,
-  "success_rate": 30.0,
-  "created_batch_id": null,
+  "tests_passed": 6,
+  "success_rate": 60.0,
+  "created_batch_id": "4889f123-2dd8-4178-a3f7-4f30fee0772e",
   "test_results": [
     {
       "test_name": "API Root Endpoint",
@@ -13,38 +13,38 @@
     },
     {
       "test_name": "Create Collection Event",
-      "success": false,
-      "details": "Status: 400, Error: Object of type datetime is not JSON serializable"
+      "success": true,
+      "details": "Status: 200, Batch ID: 4889f123-2dd8-4178-a3f7-4f30fee0772e, Batch Number: BATCH-20251002-EDA46782"
     },
     {
       "test_name": "Get All Batches",
       "success": true,
-      "details": "Status: 200, Batches count: 0"
+      "details": "Status: 200, Batches count: 1, First batch herb: ashwagandha"
     },
     {
       "test_name": "Get Batch Details",
-      "success": false,
-      "details": "No batch ID available from collection test"
+      "success": true,
+      "details": "Status: 200, Batch: BATCH-20251002-EDA46782, Herb: ashwagandha"
     },
     {
       "test_name": "Add Processing Event",
       "success": false,
-      "details": "No batch ID available"
+      "details": "Status: 400, Error: Object of type datetime is not JSON serializable"
     },
     {
       "test_name": "Add Testing Event",
       "success": false,
-      "details": "No batch ID available"
+      "details": "Status: 422, Error: [{'type': 'missing', 'loc': ['body', 'test_results', 0, 'lab_name'], 'msg': 'Field required', 'input': {'test_type': 'Moisture Content', 'result_value': '8.2', 'unit': '%', 'pass_status': True, 'certificate_number': 'CERT-001'}, 'url': 'https://errors.pydantic.dev/2.11/v/missing'}, {'type': 'missing', 'loc': ['body', 'test_results', 1, 'lab_name'], 'msg': 'Field required', 'input': {'test_type': 'Heavy Metals (Lead)', 'result_value': '2.1', 'unit': 'ppm', 'pass_status': True, 'certificate_number': 'CERT-002'}, 'url': 'https://errors.pydantic.dev/2.11/v/missing'}]"
     },
     {
       "test_name": "Get Batch Provenance",
       "success": false,
-      "details": "No batch ID available"
+      "details": "Status: 500, Response: Internal Server Error"
     },
     {
       "test_name": "Generate QR Code",
-      "success": false,
-      "details": "No batch ID available"
+      "success": true,
+      "details": "Status: 200, Batch: BATCH-20251002-EDA46782, Verification hash: 3893e62d5599eb34"
     },
     {
       "test_name": "Invalid Batch - Get Details",
