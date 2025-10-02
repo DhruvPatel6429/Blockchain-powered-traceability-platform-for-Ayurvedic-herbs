@@ -408,12 +408,16 @@ async def get_batch_provenance(batch_id: str):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-@api_router.get("/batches", response_model=List[HerbBatch])
+@api_router.get("/batches")
 async def get_all_batches():
     """Get all herb batches"""
     batches = await db.herb_batches.find().to_list(1000)
     parsed_batches = [parse_from_mongo(batch) for batch in batches]
-    return [HerbBatch(**batch) for batch in parsed_batches]
+    # Convert datetime objects to ISO strings for JSON serialization
+    for batch in parsed_batches:
+        if isinstance(batch.get('created_date'), datetime):
+            batch['created_date'] = batch['created_date'].isoformat()
+    return CustomJSONResponse(content=parsed_batches)
 
 @api_router.get("/qr/{batch_id}")
 async def generate_qr_info(batch_id: str):
