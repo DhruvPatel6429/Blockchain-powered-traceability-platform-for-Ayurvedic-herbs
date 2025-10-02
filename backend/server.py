@@ -381,7 +381,8 @@ async def get_batch_provenance(batch_id: str):
         
         # Get all blockchain events for this batch
         events = await db.blockchain_events.find(
-            {"batch_id": batch_id}
+            {"batch_id": batch_id},
+            {"_id": 0}  # Exclude MongoDB _id field
         ).sort("block_number", 1).to_list(length=None)
         
         # Parse events
