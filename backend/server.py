@@ -359,7 +359,7 @@ async def add_testing_event(input: TestingEventCreate):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-@api_router.get("/batch/{batch_id}", response_model=HerbBatch)
+@api_router.get("/batch/{batch_id}")
 async def get_batch(batch_id: str):
     """Get batch details"""
     batch = await db.herb_batches.find_one({"id": batch_id})
@@ -367,7 +367,10 @@ async def get_batch(batch_id: str):
         raise HTTPException(status_code=404, detail="Batch not found")
     
     batch = parse_from_mongo(batch)
-    return HerbBatch(**batch)
+    # Convert datetime objects to ISO strings for JSON serialization
+    if isinstance(batch.get('created_date'), datetime):
+        batch['created_date'] = batch['created_date'].isoformat()
+    return CustomJSONResponse(content=batch)
 
 @api_router.get("/batch/{batch_id}/provenance")
 async def get_batch_provenance(batch_id: str):
