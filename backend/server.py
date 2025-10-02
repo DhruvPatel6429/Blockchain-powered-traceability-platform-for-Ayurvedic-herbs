@@ -411,7 +411,7 @@ async def get_batch_provenance(batch_id: str):
 @api_router.get("/batches")
 async def get_all_batches():
     """Get all herb batches"""
-    batches = await db.herb_batches.find().to_list(1000)
+    batches = await db.herb_batches.find({}, {"_id": 0}).to_list(1000)
     parsed_batches = [parse_from_mongo(batch) for batch in batches]
     return jsonable_encoder([HerbBatch(**batch) for batch in parsed_batches])
 
