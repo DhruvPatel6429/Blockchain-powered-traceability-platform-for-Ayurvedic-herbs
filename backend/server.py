@@ -358,10 +358,7 @@ async def get_batch(batch_id: str):
         raise HTTPException(status_code=404, detail="Batch not found")
     
     batch = parse_from_mongo(batch)
-    # Convert datetime objects to ISO strings for JSON serialization
-    if isinstance(batch.get('created_date'), datetime):
-        batch['created_date'] = batch['created_date'].isoformat()
-    return CustomJSONResponse(content=batch)
+    return jsonable_encoder(HerbBatch(**batch))
 
 @api_router.get("/batch/{batch_id}/provenance")
 async def get_batch_provenance(batch_id: str):
