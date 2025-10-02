@@ -375,7 +375,7 @@ async def get_batch_provenance(batch_id: str):
     """Get complete provenance chain for a batch"""
     try:
         # Get batch
-        batch = await db.herb_batches.find_one({"id": batch_id})
+        batch = await db.herb_batches.find_one({"id": batch_id}, {"_id": 0})
         if not batch:
             raise HTTPException(status_code=404, detail="Batch not found")
         
