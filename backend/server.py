@@ -255,11 +255,12 @@ async def create_collection_event(input: CollectionEventCreate):
             origin_location=input.location
         )
         
-        # Create blockchain event
+        # Create blockchain event with serialized data
+        collection_data = prepare_for_mongo(collection_event.dict())
         blockchain_event = await create_blockchain_event(
             herb_batch.id,
             EventType.COLLECTION,
-            collection_event.dict()
+            collection_data
         )
         
         # Store in MongoDB
