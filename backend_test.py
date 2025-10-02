@@ -202,6 +202,7 @@ class HerbTraceabilityAPITester:
                         "result_value": "8.2",
                         "unit": "%",
                         "pass_status": True,
+                        "lab_name": "Test Quality Control Lab",
                         "certificate_number": "CERT-001"
                     },
                     {
@@ -209,6 +210,7 @@ class HerbTraceabilityAPITester:
                         "result_value": "2.1",
                         "unit": "ppm",
                         "pass_status": True,
+                        "lab_name": "Test Quality Control Lab",
                         "certificate_number": "CERT-002"
                     }
                 ],
