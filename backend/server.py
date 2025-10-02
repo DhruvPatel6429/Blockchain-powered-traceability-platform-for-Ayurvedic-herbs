@@ -273,12 +273,8 @@ async def create_collection_event(input: CollectionEventCreate):
         batch_dict = prepare_for_mongo(herb_batch.dict())
         await db.herb_batches.insert_one(batch_dict)
         
-        # Return the batch with properly serialized data
-        response_data = herb_batch.dict()
-        # Convert datetime objects to ISO strings for JSON serialization
-        if isinstance(response_data.get('created_date'), datetime):
-            response_data['created_date'] = response_data['created_date'].isoformat()
-        return CustomJSONResponse(content=response_data)
+        # Return the batch with properly serialized data using jsonable_encoder
+        return jsonable_encoder(herb_batch)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
