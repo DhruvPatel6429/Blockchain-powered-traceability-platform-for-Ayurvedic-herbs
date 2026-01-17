@@ -31,8 +31,11 @@ const HomePage = () => {
               <Link to="/dashboard" className="btn btn-secondary" data-testid="view-dashboard-btn">
                 📊 View Dashboard
               </Link>
-              <Link to="/scan/demo" className="btn btn-accent" data-testid="scan-demo-btn">
-                📱 Scan QR Demo
+              <Link to="/analytics" className="btn btn-accent">
+                📈 Analytics
+              </Link>
+              <Link to="/scanner" className="btn btn-accent" data-testid="scan-demo-btn">
+                📱 QR Scanner
               </Link>
             </div>
           </div>
