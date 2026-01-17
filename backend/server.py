@@ -56,6 +56,7 @@ class EventType(str, Enum):
     TESTING = "testing"
     PACKAGING = "packaging"
     DISTRIBUTION = "distribution"
+    RETAIL = "retail"
 
 class ProcessingType(str, Enum):
     DRYING = "drying"
@@ -63,6 +64,20 @@ class ProcessingType(str, Enum):
     GRINDING = "grinding"
     EXTRACTION = "extraction"
     QUALITY_CHECK = "quality_check"
+
+class PackagingType(str, Enum):
+    BOTTLING = "bottling"
+    POUCHING = "pouching"
+    BOXING = "boxing"
+    LABELING = "labeling"
+    SEALING = "sealing"
+
+class DistributionMode(str, Enum):
+    TRUCK = "truck"
+    RAIL = "rail"
+    AIR = "air"
+    SEA = "sea"
+    LOCAL = "local"
 
 # Models
 class Location(BaseModel):
