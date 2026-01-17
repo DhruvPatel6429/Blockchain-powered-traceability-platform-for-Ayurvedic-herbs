@@ -49,7 +49,7 @@ const DashboardPage = () => {
 
   const generateQR = async (batchId) => {
     try {
-      const response = await axios.get(`${API}/qr/${batchId}`);
+      const response = await axios.get(`${API}/qr/${batchId}/base64`);
       setQrData(response.data);
     } catch (error) {
       console.error('Error generating QR code:', error);
