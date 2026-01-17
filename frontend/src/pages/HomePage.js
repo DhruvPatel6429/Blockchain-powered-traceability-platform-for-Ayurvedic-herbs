@@ -73,40 +73,58 @@ const HomePage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6">
             <div className="card text-center" data-testid="collection-step-card">
               <div className="text-3xl mb-4">🌱</div>
               <h4 className="mb-3" style={{color: 'var(--primary)'}}>Collection</h4>
-              <p className="text-sm mb-4">GPS-tagged harvest with collector details, weather, and soil data</p>
-              <Link to="/collect" className="btn btn-primary w-full" data-testid="collection-step-btn">
-                Record Collection
+              <p className="text-sm mb-4">GPS-tagged harvest with collector details</p>
+              <Link to="/collect" className="btn btn-primary w-full text-sm" data-testid="collection-step-btn">
+                Record
               </Link>
             </div>
 
             <div className="card text-center" data-testid="processing-step-card">
               <div className="text-3xl mb-4">⚙️</div>
               <h4 className="mb-3" style={{color: 'var(--primary)'}}>Processing</h4>
-              <p className="text-sm mb-4">Track drying, cleaning, grinding with temperature and duration logs</p>
-              <Link to="/process" className="btn btn-primary w-full" data-testid="processing-step-btn">
-                Add Processing
+              <p className="text-sm mb-4">Drying, cleaning, and grinding tracking</p>
+              <Link to="/process" className="btn btn-primary w-full text-sm" data-testid="processing-step-btn">
+                Track
               </Link>
             </div>
 
             <div className="card text-center" data-testid="testing-step-card">
               <div className="text-3xl mb-4">🧪</div>
               <h4 className="mb-3" style={{color: 'var(--primary)'}}>Lab Testing</h4>
-              <p className="text-sm mb-4">Quality tests for moisture, pesticides, and DNA verification</p>
-              <Link to="/test" className="btn btn-primary w-full" data-testid="testing-step-btn">
-                Record Tests
+              <p className="text-sm mb-4">Quality and purity certification</p>
+              <Link to="/test" className="btn btn-primary w-full text-sm" data-testid="testing-step-btn">
+                Test
+              </Link>
+            </div>
+            
+            <div className="card text-center">
+              <div className="text-3xl mb-4">📦</div>
+              <h4 className="mb-3" style={{color: 'var(--primary)'}}>Packaging</h4>
+              <p className="text-sm mb-4">Bottling, labeling, and sealing</p>
+              <Link to="/package" className="btn btn-primary w-full text-sm">
+                Package
+              </Link>
+            </div>
+            
+            <div className="card text-center">
+              <div className="text-3xl mb-4">🚚</div>
+              <h4 className="mb-3" style={{color: 'var(--primary)'}}>Distribution</h4>
+              <p className="text-sm mb-4">Shipping and delivery tracking</p>
+              <Link to="/distribute" className="btn btn-primary w-full text-sm">
+                Ship
               </Link>
             </div>
 
             <div className="card text-center" data-testid="consumer-step-card">
               <div className="text-3xl mb-4">📱</div>
-              <h4 className="mb-3" style={{color: 'var(--primary)'}}>Consumer Scan</h4>
-              <p className="text-sm mb-4">QR code reveals complete provenance and quality certificates</p>
-              <Link to="/scan/demo" className="btn btn-primary w-full" data-testid="consumer-step-btn">
-                Scan QR Code
+              <h4 className="mb-3" style={{color: 'var(--primary)'}}>Consumer</h4>
+              <p className="text-sm mb-4">QR scan for complete journey</p>
+              <Link to="/scanner" className="btn btn-primary w-full text-sm" data-testid="consumer-step-btn">
+                Scan
               </Link>
             </div>
           </div>
