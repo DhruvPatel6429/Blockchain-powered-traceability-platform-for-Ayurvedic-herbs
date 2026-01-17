@@ -158,8 +158,30 @@ const ScanPage = () => {
             Complete blockchain-verified journey from farm to your hands
           </p>
           {provenance.chain_verified && (
-            <div className="badge badge-success text-lg px-4 py-2" data-testid="verification-badge">
-              🔒 Blockchain Verified • {provenance.total_events} Events
+            <div className="flex flex-col items-center gap-4">
+              <div className="badge badge-success text-lg px-4 py-2" data-testid="verification-badge">
+                🔒 Blockchain Verified • {provenance.total_events} Events
+              </div>
+              
+              {batchId !== 'demo' && (
+                <div className="flex gap-3">
+                  <a
+                    href={`${API}/export/batch/${batchId}/pdf`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-accent btn-sm"
+                  >
+                    📄 Download PDF Report
+                  </a>
+                  <a
+                    href={`${API}/export/batch/${batchId}/json`}
+                    download={`batch_${batchId}.json`}
+                    className="btn btn-secondary btn-sm"
+                  >
+                    📥 Export JSON
+                  </a>
+                </div>
+              )}
             </div>
           )}
         </div>
