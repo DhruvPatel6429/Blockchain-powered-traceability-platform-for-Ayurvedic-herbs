@@ -460,6 +460,127 @@ async def add_testing_event(input: TestingEventCreate):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
+@api_router.post("/packaging")
+async def add_packaging_event(input: PackagingEventCreate):
+    """Add a packaging event to an existing batch"""
+    try:
+        # Check if batch exists
+        batch = await db.herb_batches.find_one({"id": input.batch_id})
+        if not batch:
+            raise HTTPException(status_code=404, detail="Batch not found")
+        
+        # Create packaging event
+        packaging_event = PackagingEvent(**input.dict(exclude={"batch_id"}))
+        
+        # Create blockchain event with serialized data
+        packaging_data = prepare_for_mongo(packaging_event.dict())
+        blockchain_event = await create_blockchain_event(
+            input.batch_id,
+            EventType.PACKAGING,
+            packaging_data
+        )
+        
+        # Store in MongoDB
+        packaging_dict = prepare_for_mongo(packaging_event.dict())
+        await db.packaging_events.insert_one(packaging_dict)
+        
+        blockchain_dict = prepare_for_mongo(blockchain_event.dict())
+        await db.blockchain_events.insert_one(blockchain_dict)
+        
+        # Update batch status
+        await db.herb_batches.update_one(
+            {"id": input.batch_id},
+            {
+                "$push": {"blockchain_events": blockchain_event.id},
+                "$set": {"current_status": "packaged"}
+            }
+        )
+        
+        return {"message": "Packaging event added successfully", "event_id": packaging_event.id}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@api_router.post("/distribution")
+async def add_distribution_event(input: DistributionEventCreate):
+    """Add a distribution event to an existing batch"""
+    try:
+        # Check if batch exists
+        batch = await db.herb_batches.find_one({"id": input.batch_id})
+        if not batch:
+            raise HTTPException(status_code=404, detail="Batch not found")
+        
+        # Create distribution event
+        distribution_event = DistributionEvent(**input.dict(exclude={"batch_id"}))
+        
+        # Create blockchain event with serialized data
+        distribution_data = prepare_for_mongo(distribution_event.dict())
+        blockchain_event = await create_blockchain_event(
+            input.batch_id,
+            EventType.DISTRIBUTION,
+            distribution_data
+        )
+        
+        # Store in MongoDB
+        distribution_dict = prepare_for_mongo(distribution_event.dict())
+        await db.distribution_events.insert_one(distribution_dict)
+        
+        blockchain_dict = prepare_for_mongo(blockchain_event.dict())
+        await db.blockchain_events.insert_one(blockchain_dict)
+        
+        # Update batch status
+        await db.herb_batches.update_one(
+            {"id": input.batch_id},
+            {
+                "$push": {"blockchain_events": blockchain_event.id},
+                "$set": {"current_status": "in_transit"}
+            }
+        )
+        
+        return {"message": "Distribution event added successfully", "event_id": distribution_event.id}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@api_router.post("/retail")
+async def add_retail_event(input: RetailEventCreate):
+    """Add a retail event to an existing batch"""
+    try:
+        # Check if batch exists
+        batch = await db.herb_batches.find_one({"id": input.batch_id})
+        if not batch:
+            raise HTTPException(status_code=404, detail="Batch not found")
+        
+        # Create retail event
+        retail_event = RetailEvent(**input.dict(exclude={"batch_id"}))
+        
+        # Create blockchain event with serialized data
+        retail_data = prepare_for_mongo(retail_event.dict())
+        blockchain_event = await create_blockchain_event(
+            input.batch_id,
+            EventType.RETAIL,
+            retail_data
+        )
+        
+        # Store in MongoDB
+        retail_dict = prepare_for_mongo(retail_event.dict())
+        await db.retail_events.insert_one(retail_dict)
+        
+        blockchain_dict = prepare_for_mongo(blockchain_event.dict())
+        await db.blockchain_events.insert_one(blockchain_dict)
+        
+        # Update batch status
+        await db.herb_batches.update_one(
+            {"id": input.batch_id},
+            {
+                "$push": {"blockchain_events": blockchain_event.id},
+                "$set": {"current_status": "retail_ready"}
+            }
+        )
+        
+        return {"message": "Retail event added successfully", "event_id": retail_event.id}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
 @api_router.get("/batch/{batch_id}")
 async def get_batch(batch_id: str):
     """Get batch details"""
