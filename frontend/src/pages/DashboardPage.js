@@ -306,6 +306,20 @@ const DashboardPage = () => {
                       >
                         🧪 Add Testing
                       </Link>
+                      
+                      <Link
+                        to={`/package?batch=${selectedBatch.id}`}
+                        className="btn btn-secondary w-full text-sm"
+                      >
+                        📦 Add Packaging
+                      </Link>
+                      
+                      <Link
+                        to={`/distribute?batch=${selectedBatch.id}`}
+                        className="btn btn-secondary w-full text-sm"
+                      >
+                        🚚 Add Distribution
+                      </Link>
                     </div>
                   </div>
                   
@@ -315,24 +329,37 @@ const DashboardPage = () => {
                       <h4 className="mb-4" style={{color: 'var(--primary)'}}>QR Code Generated</h4>
                       
                       <div className="text-center mb-4">
-                        <div className="w-32 h-32 mx-auto bg-gray-100 rounded-lg flex items-center justify-center mb-3">
-                          <div className="text-4xl">📱</div>
+                        <div className="w-48 h-48 mx-auto bg-white p-3 rounded-lg border-2 border-gray-200 mb-3">
+                          {qrData.qr_code_base64 ? (
+                            <img 
+                              src={qrData.qr_code_base64} 
+                              alt="QR Code" 
+                              className="w-full h-full"
+                            />
+                          ) : (
+                            <QRCodeSVG 
+                              value={qrData.scan_url || ''} 
+                              size={180}
+                              level="H"
+                              includeMargin={true}
+                            />
+                          )}
                         </div>
-                        <p className="text-xs" style={{color: 'var(--text-secondary)'}}>
-                          Scan URL: /scan/{qrData.batch_id}
+                        <p className="text-xs mb-3" style={{color: 'var(--text-secondary)'}}>
+                          Scan URL: {qrData.scan_url}
                         </p>
+                        <a 
+                          href={`${API}/qr/${qrData.batch_id}/image`}
+                          download={`QR_${qrData.batch_id}.png`}
+                          className="btn btn-accent btn-sm"
+                        >
+                          📥 Download QR Code
+                        </a>
                       </div>
                       
                       <div className="space-y-2 text-xs">
                         <div>
-                          <span className="font-medium">Batch:</span> {qrData.batch_number}
-                        </div>
-                        <div>
-                          <span className="font-medium">Herb:</span> {qrData.herb_type}
-                        </div>
-                        <div>
-                          <span className="font-medium">Verification:</span>
-                          <code className="bg-gray-100 px-1 rounded">#{qrData.verification_hash}</code>
+                          <span className="font-medium">Batch ID:</span> {qrData.batch_id}
                         </div>
                       </div>
                     </div>
