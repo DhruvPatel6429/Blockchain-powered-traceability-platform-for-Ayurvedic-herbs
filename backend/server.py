@@ -132,6 +132,45 @@ class TestingEvent(BaseModel):
     compliance_status: bool = True
     notes: Optional[str] = None
 
+class PackagingEvent(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    packaging_type: PackagingType
+    packager_name: str
+    packager_id: Optional[str] = None
+    packaging_date: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    location: Optional[Location] = None
+    package_size: Optional[str] = None
+    package_count: Optional[int] = None
+    batch_codes: Optional[List[str]] = None
+    expiry_date: Optional[datetime] = None
+    notes: Optional[str] = None
+
+class DistributionEvent(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    distributor_name: str
+    distributor_id: Optional[str] = None
+    distribution_date: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    distribution_mode: DistributionMode
+    origin_location: Optional[Location] = None
+    destination_location: Optional[Location] = None
+    vehicle_number: Optional[str] = None
+    driver_name: Optional[str] = None
+    expected_delivery: Optional[datetime] = None
+    temperature_controlled: bool = False
+    notes: Optional[str] = None
+
+class RetailEvent(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    retailer_name: str
+    retailer_id: Optional[str] = None
+    received_date: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    location: Location
+    quantity_received: Optional[float] = None
+    condition_on_arrival: Optional[str] = None
+    storage_conditions: Optional[str] = None
+    notes: Optional[str] = None
+
+
 class BlockchainEvent(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     batch_id: str
