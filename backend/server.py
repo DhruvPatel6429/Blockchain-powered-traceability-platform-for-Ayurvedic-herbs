@@ -224,6 +224,42 @@ class TestingEventCreate(BaseModel):
     compliance_status: bool = True
     notes: Optional[str] = None
 
+class PackagingEventCreate(BaseModel):
+    batch_id: str
+    packaging_type: PackagingType
+    packager_name: str
+    packager_id: Optional[str] = None
+    location: Optional[Location] = None
+    package_size: Optional[str] = None
+    package_count: Optional[int] = None
+    batch_codes: Optional[List[str]] = None
+    expiry_date: Optional[datetime] = None
+    notes: Optional[str] = None
+
+class DistributionEventCreate(BaseModel):
+    batch_id: str
+    distributor_name: str
+    distributor_id: Optional[str] = None
+    distribution_mode: DistributionMode
+    origin_location: Optional[Location] = None
+    destination_location: Optional[Location] = None
+    vehicle_number: Optional[str] = None
+    driver_name: Optional[str] = None
+    expected_delivery: Optional[datetime] = None
+    temperature_controlled: bool = False
+    notes: Optional[str] = None
+
+class RetailEventCreate(BaseModel):
+    batch_id: str
+    retailer_name: str
+    retailer_id: Optional[str] = None
+    location: Location
+    quantity_received: Optional[float] = None
+    condition_on_arrival: Optional[str] = None
+    storage_conditions: Optional[str] = None
+    notes: Optional[str] = None
+
+
 # Blockchain simulation functions
 def calculate_hash(event_data: dict, previous_hash: str, timestamp: str) -> str:
     """Calculate hash for blockchain event"""
