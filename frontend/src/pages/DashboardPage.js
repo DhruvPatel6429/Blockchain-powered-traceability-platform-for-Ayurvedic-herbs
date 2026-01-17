@@ -437,8 +437,11 @@ const DashboardPage = () => {
               <Link to="/collect" className="btn btn-primary w-full text-sm" data-testid="dashboard-collect-btn">
                 Record Collection
               </Link>
-              <Link to="/scan/demo" className="btn btn-secondary w-full text-sm" data-testid="dashboard-demo-btn">
-                View Demo Scan
+              <Link to="/analytics" className="btn btn-accent w-full text-sm">
+                📊 View Analytics
+              </Link>
+              <Link to="/scanner" className="btn btn-secondary w-full text-sm">
+                📱 QR Scanner
               </Link>
             </div>
           </div>
